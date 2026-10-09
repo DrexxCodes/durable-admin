@@ -1,0 +1,231 @@
+/* ==========================================================================
+   Admin glass layer  (loaded after theme.css)
+   Glassmorphism over a soft aurora background. Everything here is presentation only:
+   it restyles the shell, dialogs, inputs and a few legacy classes the ported pages use.
+   ========================================================================== */
+
+:root {
+	--glass: rgba(255, 255, 255, 0.58);
+	--glass-strong: rgba(255, 255, 255, 0.8);
+	--glass-border: rgba(255, 255, 255, 0.72);
+	--glass-shadow: 0 8px 32px rgba(44, 8, 69, 0.12);
+	--glass-blur: blur(18px) saturate(165%);
+
+	/* One brand tile for every dashboard / menu card (same plum -> violet as the user app's balance card). */
+	--tile: linear-gradient(135deg, var(--brand-deep) 0%, var(--brand) 55%, var(--brand-bright) 135%);
+
+	/* Legacy rainbow tokens from legacy.css now resolve to the brand, so nothing can leak colour back in. */
+	--gradient1: var(--tile);
+	--gradient2: var(--tile);
+	--gradient3: var(--tile);
+	--gradient4: var(--tile);
+	--gradient5: var(--tile);
+	--gradient8: linear-gradient(180deg, var(--brand-soft), rgba(243, 235, 250, 0));
+	--purple: var(--brand-bright);
+	--deep-purple: var(--brand);
+	--dark-purple: var(--brand-deep);
+	--theme: var(--brand-bright);
+}
+
+/* ---------- aurora background ---------- */
+body { position: relative; isolation: isolate; overflow-x: hidden; }
+body::before {
+	content: "";
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	pointer-events: none;
+	background:
+		radial-gradient(540px 440px at 6% -4%, rgba(117, 53, 220, 0.3), transparent 70%),
+		radial-gradient(480px 420px at 100% 8%, rgba(212, 167, 44, 0.22), transparent 70%),
+		radial-gradient(640px 520px at 55% 112%, rgba(60, 11, 91, 0.22), transparent 70%);
+}
+
+/* ---------- glass surfaces ---------- */
+.app-sidebar,
+.app-topbar,
+.app-bottomnav,
+.more-sheet,
+.ui-modal,
+.auth-card,
+.react-calendar,
+.dropdown-menu,
+.app-main .card,
+.app-main .list-group-item,
+.support-list a,
+.pagination li a,
+.page-link {
+	background: var(--glass);
+	-webkit-backdrop-filter: var(--glass-blur);
+	backdrop-filter: var(--glass-blur);
+	border-color: var(--glass-border);
+}
+.app-sidebar { border-right: 1px solid var(--glass-border); box-shadow: var(--glass-shadow); }
+.app-topbar { border-bottom: 1px solid var(--glass-border); }
+.app-bottomnav { background: var(--glass-strong); border-top: 1px solid var(--glass-border); box-shadow: 0 -8px 28px rgba(44, 8, 69, 0.1); }
+.more-sheet { background: var(--glass-strong); border: 1px solid var(--glass-border); border-bottom: 0; }
+.ui-modal { background: var(--glass-strong); border: 1px solid var(--glass-border); box-shadow: var(--glass-shadow); }
+.ui-modal-backdrop { background: rgba(34, 6, 54, 0.38); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.app-main .card,
+.app-main .list-group-item,
+.react-calendar { border: 1px solid var(--glass-border); border-radius: var(--radius-lg); box-shadow: var(--glass-shadow); }
+.support-toggle { background: linear-gradient(135deg, var(--brand), var(--brand-bright)); box-shadow: 0 10px 24px rgba(60, 11, 91, 0.35); }
+
+/* no backdrop-filter support: fall back to solid panels so text stays readable */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+	.app-sidebar, .app-topbar, .app-bottomnav, .more-sheet, .ui-modal, .auth-card, .react-calendar,
+	.dropdown-menu, .app-main .card, .app-main .list-group-item { background: #fff; }
+}
+
+/* ---------- navigation ---------- */
+.nav-group + .nav-group { margin-top: 4px; }
+.nav-label {
+	padding: 14px 12px 6px; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.09em;
+	text-transform: uppercase; color: var(--muted);
+}
+.app-sidebar.is-collapsed .nav-label { visibility: hidden; height: 10px; padding: 0; }
+.nav-item:hover { background: rgba(255, 255, 255, 0.65); }
+.nav-item.is-active {
+	background: linear-gradient(135deg, rgba(117, 53, 220, 0.18), rgba(60, 11, 91, 0.1));
+	color: var(--brand);
+	box-shadow: inset 0 0 0 1px rgba(117, 53, 220, 0.2);
+}
+.more-item:hover { background: rgba(255, 255, 255, 0.6); }
+.more-icon { background: rgba(117, 53, 220, 0.12); }
+
+/* ---------- controls ---------- */
+.btn-primary1 {
+	background: linear-gradient(135deg, var(--brand), var(--brand-bright)) !important;
+	border-color: transparent !important;
+	box-shadow: 0 6px 16px rgba(60, 11, 91, 0.25);
+}
+.btn-primary1:hover { filter: brightness(1.08); }
+.form-control, .form-select, select, textarea,
+input[type="text"], input[type="number"], input[type="email"], input[type="tel"], input[type="password"], input[type="search"] {
+	background-color: rgba(255, 255, 255, 0.7);
+	border-color: rgba(60, 11, 91, 0.14);
+}
+.pagination li a, .page-link { background: var(--glass); }
+
+/* ---------- brand tiles (dashboard stats + menu cards) ---------- */
+.app-main .eachProduct {
+	position: relative;
+	overflow: hidden;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	box-shadow: 0 10px 28px rgba(44, 8, 69, 0.18);
+	transition: box-shadow 0.18s ease, transform 0.18s ease;
+}
+.app-main .eachProduct::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0) 55%);
+}
+.app-main .eachProduct:hover { box-shadow: 0 14px 34px rgba(44, 8, 69, 0.26); transform: translateY(-2px); }
+
+/* Pages used to pick black or white text per card; on the one brand tile it is always white. Headings are
+   covered too (global h1-h6 ink colour used to turn labels dark on the tile). */
+.app-main [style*="--tile"],
+.app-main [style*="--tile"] :is(h1, h2, h3, h4, h5, h6, p, span, small, strong, div, a) { color: #fff !important; }
+.app-main [style*="--tile"] .iconDash { color: var(--gold) !important; }
+/* gold accent: the user app uses gold sparingly, so each tile just gets a thin gold base line */
+.app-main .eachProduct[style*="--tile"]::after {
+	content: "";
+	position: absolute;
+	left: 22px;
+	right: 22px;
+	bottom: 0;
+	height: 3px;
+	border-radius: 3px 3px 0 0;
+	background: var(--gold);
+	opacity: 0.85;
+	pointer-events: none;
+}
+/* notification channel tiles: the tile sits inside a padded .eachProduct frame, so drop the frame chrome and
+   keep the white icon disc (the global .bg-white reset would make it transparent) */
+.app-main .notifyBox { border: 0; box-shadow: none; background: transparent !important; }
+.app-main .notifyBox::before { display: none; }
+.app-main .notifyBox [style*="--tile"] { box-shadow: 0 10px 28px rgba(44, 8, 69, 0.18); }
+.app-main .notifyBox .bg-white { background: #fff !important; }
+/* empty-state artwork ships with a white backdrop; multiply lets the page background show through */
+.app-main .emptyData { mix-blend-mode: multiply; }
+/* inventory cards: soft brand tint instead of pink / teal / violet flats */
+.app-main [style*="brand-soft"] { border: 1px solid var(--line); box-shadow: var(--shadow-sm); }
+
+/* ---------- scrollbars: slim and quiet (the theme magenta was loud inside the glass shell) ---------- */
+* { scrollbar-width: thin; scrollbar-color: rgba(60, 11, 91, 0.28) transparent; }
+.app-sidebar-nav { scrollbar-width: thin; }
+
+/* ---------- auth screens ---------- */
+.auth-split { padding: 0; display: grid; grid-template-columns: minmax(0, 1fr); align-items: stretch; justify-content: stretch; }
+.auth-aside {
+	display: none; position: relative; overflow: hidden; flex-direction: column; justify-content: space-between;
+	padding: 40px; color: #fff;
+	background: linear-gradient(150deg, var(--brand-deep), var(--brand) 55%, var(--brand-bright));
+}
+.auth-aside::before, .auth-aside::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
+.auth-aside::before { width: 320px; height: 320px; top: -90px; right: -90px; background: rgba(255, 255, 255, 0.1); }
+.auth-aside::after { width: 240px; height: 240px; bottom: -70px; left: -60px; background: rgba(212, 167, 44, 0.22); }
+.auth-aside > * { position: relative; z-index: 1; }
+.auth-aside .brand-logo { align-self: flex-start; background: rgba(255, 255, 255, 0.92); padding: 8px 14px; border-radius: 16px; }
+.auth-art { width: min(100%, 420px); margin: auto; filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.35)); }
+.auth-aside-text { margin: 0; font-weight: 600; opacity: 0.85; }
+.auth-panel { display: flex; align-items: center; justify-content: center; padding: 24px 16px; min-height: 100vh; }
+.auth-split .auth-card { max-width: 460px; background: var(--glass-strong); }
+@media (min-width: 992px) {
+	.auth-split { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
+	.auth-aside { display: flex; }
+}
+
+/* ---------- universal footer credit ---------- */
+.site-credit { margin: 0; font-size: 0.78rem; color: var(--muted); letter-spacing: 0.01em; }
+.site-credit strong { color: var(--brand); font-weight: 650; }
+.site-footer-guest { padding: 14px 16px calc(14px + env(safe-area-inset-bottom)); text-align: center; }
+/* the auth screens were exactly one viewport tall; leave room so the credit sits on the first screen */
+.guest-shell .auth-screen,
+.guest-shell .auth-panel { min-height: calc(100vh - 52px); }
+
+/* ---------- responsive hardening for the ported pages ---------- */
+.app-body, .app-main { min-width: 0; }
+.app-main { overflow-x: clip; }
+.app-main img { max-width: 100%; }
+.app-main pre, .app-main code { white-space: pre-wrap; overflow-wrap: anywhere; }
+.app-main .table-responsive { -webkit-overflow-scrolling: touch; }
+
+@media (max-width: 767.98px) {
+	.app-main .container { padding-left: 14px; padding-right: 14px; }
+	/* 16px stops iOS from zooming into a focused field */
+	input, select, textarea, .form-control, .form-select { font-size: 16px !important; }
+	.btn { min-height: 42px; }
+	/* dialogs become bottom sheets */
+	.ui-modal-backdrop { align-items: flex-end; padding: 0; }
+	.ui-modal, .ui-modal-sm, .ui-modal-lg { max-width: 100%; max-height: 92vh; border-radius: 22px 22px 0 0; }
+	.ui-modal-body { padding-bottom: calc(20px + env(safe-area-inset-bottom)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
+
+
+/* ---------- skeleton loading ---------- */
+.skeleton {
+	display: inline-block; vertical-align: middle; border-radius: 8px;
+	background: linear-gradient(90deg, rgba(60, 11, 91, 0.08) 25%, rgba(117, 53, 220, 0.18) 50%, rgba(60, 11, 91, 0.08) 75%);
+	background-size: 200% 100%;
+	animation: skeleton-shimmer 1.3s ease-in-out infinite;
+}
+/* on the plum tiles the bar is a translucent white instead */
+[style*="--tile"] .skeleton {
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0.14) 25%, rgba(255, 255, 255, 0.34) 50%, rgba(255, 255, 255, 0.14) 75%);
+	background-size: 200% 100%;
+}
+@keyframes skeleton-shimmer { from { background-position: 200% 0; } to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .skeleton { animation: none; } }
+
+/* ---------- pull-to-refresh chip in the admin palette (theme.css ships the user app's magenta) ---------- */
+.ptr-chip { box-shadow: 0 6px 18px rgba(60, 11, 91, 0.28), 0 1px 3px rgba(0, 0, 0, 0.12); }
+.ptr-track { stroke: rgba(60, 11, 91, 0.16); }
+.ptr-arc { stroke: var(--brand-bright); }
+.install-banner { background: var(--glass-strong); -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur); }

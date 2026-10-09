@@ -1,0 +1,84 @@
+/* Only the ~80 `tw-*` utilities the admin pages actually use (Tailwind itself is no longer needed). */
+@media (min-width:1024px){.lg\:tw-grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:1024px){.lg\:tw-grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:768px){.md\:tw-grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media print{.print\:tw-w-3\/4{width:75%}}
+.tw-absolute{position:absolute}
+.tw-bg-green-100{background-color:#dcfce7}
+.tw-bg-transparent{background-color:transparent}
+.tw-bg-white{background-color:#fff}
+.tw-border-\[\#CCCCCC\]{border-color:#CCCCCC}
+.tw-border-b{border-bottom-width:1px;border-bottom-style:solid}
+.tw-border-b-black{border-bottom-color:#000}
+.tw-capitalize{text-transform:capitalize}
+.tw-cursor-pointer{cursor:pointer}
+.tw-flex{display:flex}
+.tw-font-\[900\]{font-weight:900}
+.tw-font-bold{font-weight:700}
+.tw-font-extrabold{font-weight:800}
+.tw-font-medium{font-weight:500}
+.tw-font-normal{font-weight:400}
+.tw-font-semibold{font-weight:600}
+.tw-gap-10{gap:2.5rem}
+.tw-gap-5{gap:1.25rem}
+.tw-gap-6{gap:1.5rem}
+.tw-gap-7{gap:1.75rem}
+.tw-gap-8{gap:2rem}
+.tw-grid{display:grid}
+.tw-grid-cols-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.tw-grid-cols-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.tw-h-16{height:4rem}
+.tw-h-28{height:7rem}
+.tw-h-40{height:10rem}
+.tw-h-48{height:12rem}
+.tw-h-96{height:24rem}
+.tw-hidden{display:none}
+.tw-items-center{align-items:center}
+.tw-justify-between{justify-content:space-between}
+.tw-justify-center{justify-content:center}
+.tw-leading-5{line-height:1.25rem}
+.tw-mt-1{margin-top:0.25rem}
+.tw-mt-2{margin-top:0.5rem}
+.tw-mt-4{margin-top:1rem}
+.tw-mt-6{margin-top:1.5rem}
+.tw-mx-auto{margin-left:auto;margin-right:auto}
+.tw-opacity-40{opacity:.4}
+.tw-px-3{padding-left:0.75rem;padding-right:0.75rem}
+.tw-px-6{padding-left:1.5rem;padding-right:1.5rem}
+.tw-py-10{padding-top:2.5rem;padding-bottom:2.5rem}
+.tw-py-16{padding-top:4rem;padding-bottom:4rem}
+.tw-py-6{padding-top:1.5rem;padding-bottom:1.5rem}
+.tw-relative{position:relative}
+.tw-right-6{right:1.5rem}
+.tw-shadow-md{box-shadow:0 4px 6px -1px rgb(0 0 0/.1),0 2px 4px -2px rgb(0 0 0/.1)}
+.tw-shadow-xl{box-shadow:0 20px 25px -5px rgb(0 0 0/.1),0 8px 10px -6px rgb(0 0 0/.1)}
+.tw-space-y-2>*+*{margin-top:.5rem}
+.tw-text-2xl{font-size:1.5rem;line-height:2rem}
+.tw-text-3xl{font-size:1.875rem;line-height:2.25rem}
+.tw-text-4xl{font-size:2.25rem;line-height:2.5rem}
+.tw-text-\[\#088935\]{color:#088935}
+.tw-text-\[\#0ea5e9\]{color:#0ea5e9}
+.tw-text-\[\#1b1b1b\]{color:#1b1b1b}
+.tw-text-\[\#22c55e\]{color:#22c55e}
+.tw-text-\[\#2563eb\]{color:#2563eb}
+.tw-text-\[\#555353\]{color:#555353}
+.tw-text-\[\#707070\]{color:#707070}
+.tw-text-\[\#767171\]{color:#767171}
+.tw-text-\[\#8b5cf6\]{color:#8b5cf6}
+.tw-text-\[\#ca8a04\]{color:#ca8a04}
+.tw-text-\[\#e11d48\]{color:#e11d48}
+.tw-text-\[13px\]{font-size:13px}
+.tw-text-base{font-size:1rem;line-height:1.5rem}
+.tw-text-black{color:#000}
+.tw-text-center{text-align:center}
+.tw-text-lg{font-size:1.125rem;line-height:1.75rem}
+.tw-text-sm{font-size:0.875rem;line-height:1.25rem}
+.tw-text-xl{font-size:1.25rem;line-height:1.75rem}
+.tw-top-6{top:1.5rem}
+.tw-tracking-\[7\%\]{letter-spacing:.07em}
+.tw-uppercase{text-transform:uppercase}
+.tw-w-1\/2{width:50%}
+.tw-w-11\/12{width:91.666667%}
+.tw-w-40{width:10rem}
+.tw-w-5\/6{width:83.333333%}
+.tw-w-full{width:100%}

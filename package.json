@@ -1,0 +1,35 @@
+{
+  "name": "durable-admin-next",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev -p 4300",
+    "build": "next build",
+    "start": "next start -p 4300"
+  },
+  "dependencies": {
+    "@redux-devtools/extension": "latest",
+    "axios": "latest",
+    "bootstrap": "latest",
+    "flutterwave-react-v3": "latest",
+    "moment": "latest",
+    "next": "latest",
+    "qrcode": "latest",
+    "react": "latest",
+    "react-calendar": "latest",
+    "react-dom": "latest",
+    "react-export-table-to-excel": "latest",
+    "react-icons": "latest",
+    "react-idle-timer": "latest",
+    "react-number-format": "latest",
+    "react-paginate": "latest",
+    "react-paystack": "latest",
+    "react-redux": "latest",
+    "react-spinners": "latest",
+    "react-to-print": "latest",
+    "react-toastify": "latest",
+    "recharts": "latest",
+    "redux": "latest",
+    "redux-thunk": "latest"
+  }
+}
