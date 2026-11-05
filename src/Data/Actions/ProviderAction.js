@@ -458,6 +458,7 @@ export const manageCategory = (data, id, type) => async dispatch => {
 			dispatch(getElectricityToBuy());
 			dispatch(getCablesPackages());
 		}
+		return true; // lets callers (modals) close only on success
 	} catch (err) {
 		console.log({ err });
 		let error = err.response?.data?.error;
@@ -466,6 +467,7 @@ export const manageCategory = (data, id, type) => async dispatch => {
 		}
 		if (err?.response?.status === 429) toast.error(err?.response?.data);
 		dispatch({ type: ADD_CATEGORY_FAIL });
+		return false;
 	}
 };
 

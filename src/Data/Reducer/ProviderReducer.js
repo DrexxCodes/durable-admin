@@ -1145,6 +1145,7 @@ export const CategoryReducer = (state = initialState5, action) => {
 				...state,
 				isDeleted: true,
 				data: DeleteData(state?.data, data),
+				mainSearch: DeleteData(state?.mainSearch, data),
 				paginate: {
 					...state?.paginate,
 					result: state?.paginate?.result - 1,

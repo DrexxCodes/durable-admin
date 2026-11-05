@@ -229,3 +229,9 @@ input[type="text"], input[type="number"], input[type="email"], input[type="tel"]
 .ptr-track { stroke: rgba(60, 11, 91, 0.16); }
 .ptr-arc { stroke: var(--brand-bright); }
 .install-banner { background: var(--glass-strong); -webkit-backdrop-filter: var(--glass-blur); backdrop-filter: var(--glass-blur); }
+
+/* ---------- action cells: keep `.btn-group` a flex row even when it also has `.textTrunc` ----------
+   legacy.css loads after Bootstrap here (the CRA app loaded it before), so `.textTrunc`
+   (display:-webkit-box + 1-line clamp + overflow:hidden) beat `.btn-group` and stacked the
+   action buttons, clipping all but the first (edit / delete vanished on Category, Cables, Network...). */
+.textTrunc.btn-group { display: inline-flex; overflow: visible; }
