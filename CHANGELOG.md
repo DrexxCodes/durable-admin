@@ -1,5 +1,43 @@
 # Changelog
 
+## v2.0.2 - Slider delete no longer strands a ghost row
+
+- `Data/Actions/NotificationAction.js` (`manageSlider`): when the API answers "Slider not found" (or an invalid slider id),
+  the slider list is re-fetched so the page matches the server instead of keeping a row that can never be deleted.
+- Root cause of the error was server-side (20-minute role-less slider cache that was never flushed); fixed in
+  `durable-backend` (see its CHANGELOG). This is only the safety net.
+
+## v2.0.1 - Category Control: edit + delete now usable
+
+### Root cause: edit / delete buttons were invisible
+- Edit and delete were already in `category.jsx`, but only the enable/disable button showed. The action cell is
+  `col textTrunc ... btn-group`; `.textTrunc` (`display:-webkit-box`, 1-line clamp, `overflow:hidden`) overrides
+  Bootstrap's `.btn-group` because `legacy.css` loads **after** Bootstrap in this app (the CRA app imported it
+  before, so it worked there). The buttons stacked and every button after the first was clipped.
+- `styles/admin.css`: `.textTrunc.btn-group { display:inline-flex; overflow:visible }`. This also restores the
+  hidden action buttons on the other pages that use the same cell: Cables, Network, Education, Electricity, Biller,
+  Manage products, CG wallet, Blacklist, Sliders, Converter.
+
+### Category Control
+- Split the 500-line page into `features/Category/` (`CategoryTable`, `CategoryRow`, `CreateCategoryModal`,
+  `AddBillerModal`, `EditCategoryModal`, `DeleteCategoryModal`, `OptionGrid`, `constants`, `utils`).
+  `views/app/controls/category.jsx` is now just the page shell (permissions, bulk enable/disable, one modal at a time).
+- **Edit**: rename + status in one modal, with a live "Saved as: ..." preview that mirrors the backend rules. Only the
+  changed fields are sent (the old code posted the whole populated row). Save is disabled until something changed.
+- **Delete**: type-the-name confirmation (delete cascades to plans / prices), clear warning text, modal closes only on
+  success. Enable/disable toggle also sends just `{ enabler }`.
+- Modals are mounted only while open, so forms always start clean (removes the reset/"submit flag" effects).
+- Fixes: S/N now continues across pages (was 1-10 on every page); rows keyed by `_id`; page range change resets to
+  page 1; deleting the last item on a page steps back instead of showing an empty page; "Add biller" no longer
+  submits the whole category (was sending a populated object as `biller`) and greys out billers already on the list.
+
+### Data layer (tiny)
+- `Actions/ProviderAction.js`: `manageCategory` now returns `true` / `false` so callers can close dialogs on success only.
+- `Reducer/ProviderReducer.js`: `DELETE_CATEGORY` also removes the item from `mainSearch` (it stayed visible while searching).
+
+### Needs the matching `durable-backend` update (see its CHANGELOG)
+- Rename is display-name only; delete is blocked while users hold balance and cleans up references.
+
 ## v2.0.0 – Next.js + glass makeover (from the CRA `superadmin`)
 
 ### Core (not touched)

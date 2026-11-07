@@ -105,6 +105,10 @@ export const manageSlider = (data, id, type) => async dispatch => {
 		if (error) {
 			dispatch(returnErrors({ error, status: err?.response?.status }));
 		}
+		// "Slider not found" means the list on screen is out of date (already deleted elsewhere):
+		// re-sync it instead of leaving a ghost row that can never be deleted
+		if (Array.isArray(error) && error.some(e => e?.param === "slider"))
+			dispatch(getSlider());
 		dispatch({ type: ADD_SLIDER_FAIL });
 	}
 };
